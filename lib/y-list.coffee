@@ -1,5 +1,4 @@
 class YList
-
   #
   # @private
   # @param {Object} uid A unique identifier. If uid is undefined, a new uid will be created.
@@ -19,24 +18,25 @@ class YList
       @_model = new ops.ListManager(@).execute()
       @_model.insert 0, @_list
     delete @_list
+
     @_model
 
   _setModel: (@_model)->
     delete @_list
 
   val: ()->
-    @_model.val.apply @_model, arguments
+    @_model.val arguments...
 
   ref: ()->
-    @_model.ref.apply @_model, arguments
+    @_model.ref arguments...
 
 
   observe: ()->
-    @_model.observe.apply @_model, arguments
+    @_model.observe arguments...
     @
 
   unobserve: ()->
-    @_model.unobserve.apply @_model, arguments
+    @_model.unobserve arguments...
     @
 
   #
@@ -45,14 +45,12 @@ class YList
   # @return {ListManager Type} This String object.
   #
   insert: (position, content)->
-    if typeof position isnt "number"
-      throw new Error "Y.List.insert expects a Number as the first parameter!"
-    @_model.insert position, [content]
-    @
+    @insertContents position, [content]
 
   insertContents: (position, contents)->
     if typeof position isnt "number"
       throw new Error "Y.List.insert expects a Number as the first parameter!"
+
     @_model.insert position, contents
     @
 
@@ -64,6 +62,9 @@ class YList
     @_model.push content
     @
 
+  getLength: () ->
+    @_model.getLength()
+
 if window?
   if window.Y?
     window.Y.List = YList
@@ -72,13 +73,3 @@ if window?
 
 if module?
   module.exports = YList
-
-
-
-
-
-
-
-
-
-
