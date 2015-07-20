@@ -28,29 +28,29 @@ YList = (function() {
   };
 
   YList.prototype.val = function() {
-    return this._model.val.apply(this._model, arguments);
+    var ref;
+    return (ref = this._model).val.apply(ref, arguments);
   };
 
   YList.prototype.ref = function() {
-    return this._model.ref.apply(this._model, arguments);
+    var ref;
+    return (ref = this._model).ref.apply(ref, arguments);
   };
 
   YList.prototype.observe = function() {
-    this._model.observe.apply(this._model, arguments);
+    var ref;
+    (ref = this._model).observe.apply(ref, arguments);
     return this;
   };
 
   YList.prototype.unobserve = function() {
-    this._model.unobserve.apply(this._model, arguments);
+    var ref;
+    (ref = this._model).unobserve.apply(ref, arguments);
     return this;
   };
 
   YList.prototype.insert = function(position, content) {
-    if (typeof position !== "number") {
-      throw new Error("Y.List.insert expects a Number as the first parameter!");
-    }
-    this._model.insert(position, [content]);
-    return this;
+    return this.insertContents(position, [content]);
   };
 
   YList.prototype.insertContents = function(position, contents) {
@@ -69,6 +69,10 @@ YList = (function() {
   YList.prototype.push = function(content) {
     this._model.push(content);
     return this;
+  };
+
+  YList.prototype.getLength = function() {
+    return this._model.getLength();
   };
 
   return YList;
